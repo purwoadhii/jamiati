@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Admin Kejutan Ulang Tahun</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--aksen:#e85d8f;--aksen2:#8b6fd6;--tepi:#ffc7d9;--tinta:#3d2a3a;--latar:#fff4f8;--panel:#ffffff;--redup:#8a6a80}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--latar:#1f1620;--panel:#2b1f2c;--tinta:#f6e8f0;--tepi:#5a3a50;--redup:#c9a8bc}}
+  :root[data-theme="dark"]{--latar:#1f1620;--panel:#2b1f2c;--tinta:#f6e8f0;--tepi:#5a3a50;--redup:#c9a8bc}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--latar);color:var(--tinta);font:15px/1.5 "Nunito",system-ui,sans-serif}
+  main{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+  h1{font:600 28px "Fredoka",sans-serif;color:var(--aksen);margin:0 0 4px}
+  h2{font:600 19px "Fredoka",sans-serif;color:var(--aksen2);margin:0 0 12px}
+  .sub{color:var(--redup);margin:0 0 20px}
+  .kartu{background:var(--panel);border-radius:20px;padding:18px;margin:0 0 16px;box-shadow:0 0 0 2px var(--tepi)}
+  label{display:block;font:500 14px "Fredoka",sans-serif;margin:12px 0 4px}
+  label small{font-family:"Nunito",sans-serif;font-weight:400;color:var(--redup)}
+  input,textarea,select{width:100%;font:15px "Nunito",sans-serif;padding:10px 12px;border-radius:12px;border:2px solid var(--tepi);background:transparent;color:inherit}
+  textarea{min-height:120px;resize:vertical}
+  .dua{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+  @media (max-width:560px){.dua{grid-template-columns:1fr}}
+  button,.tombol{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;cursor:pointer;font:600 16px "Fredoka",sans-serif;padding:11px 22px;border-radius:99px;background:var(--aksen);color:#fff;text-decoration:none}
+  button.garis,.tombol.garis{background:transparent;color:var(--aksen);box-shadow:0 0 0 2px var(--aksen)}
+  button:disabled{opacity:.6;cursor:wait}
+  .baris{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+  .foto{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;margin-top:10px}
+  .foto div{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;box-shadow:0 0 0 2px var(--tepi)}
+  .foto img{width:100%;height:100%;object-fit:cover}
+  .foto button{position:absolute;top:4px;right:4px;width:28px;height:28px;padding:0;font-size:16px}
+  .foto .no{position:absolute;left:4px;top:4px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;padding:1px 7px;border-radius:99px}
+  .foto .baru::after{content:"baru";position:absolute;left:4px;bottom:4px;background:var(--aksen2);color:#fff;font-size:11px;padding:1px 8px;border-radius:99px}
+  .status{margin-top:12px;color:var(--redup);white-space:pre-line}
+  .status.ok{color:#2e9d5b}.status.gagal{color:#d03a4a}
+  .tulisan{border:1px solid var(--tepi,#e4d8c4);border-radius:12px;padding:10px 12px;margin-top:10px} .tulisan-atas{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--redup)} .tulisan-atas b{color:var(--aksen)} .tulisan-isi{white-space:pre-line;margin:6px 0 8px;line-height:1.5} .kecil-tombol{padding:4px 12px;font-size:13px}
+  .tanya-lanjut{border-left:3px solid var(--tepi);padding-left:12px;margin-top:12px}
+  .kecil{font-size:14px;color:var(--redup);line-height:1.55} details{margin:6px 0 4px} summary{cursor:pointer;color:var(--aksen);font-weight:700} ol.kecil{padding-left:20px} ol.kecil li{margin:4px 0}
+  .link{word-break:break-all;background:var(--latar);padding:10px 12px;border-radius:12px;margin-top:8px;font-family:ui-monospace,monospace;font-size:13px}
+  [hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <h1>Admin Kejutan Ulang Tahun 🎂</h1>
+  <p class="sub">Isi surat di kotak surat, pesan kejutan, dan kado. Perubahan disimpan langsung ke repositori GitHub.</p>
+
+  <section class="kartu" id="masuk">
+    <h2>Masuk</h2>
+    <label>Repositori<input id="repo" value="purwoadhii/jamiati" autocomplete="off"></label>
+    <label>Token GitHub <small>(fine-grained token, akses Contents: Read and write ke repo ini)</small><input id="token" type="password" autocomplete="off"></label>
+    <label style="display:flex;gap:8px;align-items:center;font-weight:400"><input id="ingat" type="checkbox" style="width:auto" checked> Ingat token di browser ini</label>
+    <div class="baris"><button id="btnMasuk" type="button">Masuk</button><a class="tombol garis" target="_blank" rel="noopener" href="https://github.com/settings/personal-access-tokens/new">Buat token</a></div>
+    <div class="status" id="statusMasuk"></div>
+  </section>
+
+  <form id="form" hidden>
+    <section class="kartu">
+      <h2>Yang berulang tahun</h2>
+      <div class="dua">
+        <label>Nama<input name="nama" required maxlength="40"></label>
+        <label>Usia (angka di lilin)<input name="usia" type="number" min="1" max="99"></label>
+        <label>Tokoh yang berjalan<select name="jenis"><option value="">Dipilih sendiri saat membuka</option><option value="cewek">Cewek (di dalam rumah: cowok)</option><option value="cowok">Cowok (di dalam rumah: cewek)</option></select></label>
+        <label>Nama pemberi kejutan<input name="pengirim" maxlength="40"></label>
+      </div>
+    </section>
+    <section class="kartu">
+      <h2>Surat di kotak surat 💌</h2>
+      <label>Surat di kotak surat <small>(pisahkan paragraf dengan satu baris kosong)</small><textarea name="surat" rows="7"></textarea></label>
+      <label>Surat yang jatuh dari pohon <small>(muncul saat pohon besar di halaman diklik)</small><textarea name="suratPohon" rows="5"></textarea></label>
+      <label>Balasan saat menulis keluh kesah di bangku <small>(muncul setelah tombol "Lepaskan")</small><textarea name="balasKeluh" rows="4"></textarea></label>
+    </section>
+    <section class="kartu">
+      <h2>Kejutan di dalam rumah 🎉</h2>
+      <label>Ucapan si dia setelah SURPRISE <small>(muncul dan berganti halaman otomatis saat pertama masuk rumah; setiap paragraf = satu halaman)</small><textarea name="pesanKejutan" rows="6"></textarea></label>
+      <label>Pertanyaan saat si dia diklik <small>(lalu yang berulang tahun mengetik jawabannya)</small><textarea name="tanyaKabar" rows="2"></textarea></label>
+      <label>Balasan si dia setelah dijawab<textarea name="balasKabar" rows="4"></textarea></label>
+      <div class="kecil" style="margin-top:14px"><b>Pertanyaan lanjutan</b> — setelah balasan di atas, si dia bertanya lagi, yang berulang tahun menjawab, lalu si dia membalas. Urut dari atas. Jawabannya ikut tersimpan di database.</div>
+      <div id="daftarTanya"></div>
+      <div class="baris"><button type="button" class="garis" id="tambahTanya">+ Tambah pertanyaan</button></div>
+      <label>Contoh wish <small>(muncul bila yang berulang tahun tidak mengetik sendiri)</small><input name="harapan" maxlength="80"></label>
+      <label>Pesan setelah meniup lilin<textarea name="pesanSetelahTiup" rows="4"></textarea></label>
+      <label>Surat di dalam pot tanaman <small>(kertasnya berhias daun-daun)</small><textarea name="suratPot" rows="5"></textarea></label>
+    </section>
+    <section class="kartu">
+      <h2>Kamar di lantai 2 🌙</h2>
+      <label>Catatan di atas gaun / jas dalam lemari<textarea name="catatanGaun" rows="3"></textarea></label>
+      <label>Foto bingkai di dinding (samping lemari) <small id="infoFotoDinding"></small><input id="inFotoDinding" type="file" accept="image/*"></label>
+      <div class="foto" id="lihatFotoDinding"></div>
+      <label>Foto bingkai di meja samping kasur <small id="infoFotoMeja"></small><input id="inFotoMeja" type="file" accept="image/*"></label>
+      <div class="foto" id="lihatFotoMeja"></div>
+      <label>Tulisan di balik foto meja<textarea name="tulisanFoto" rows="4"></textarea></label>
+      <label>Album foto di meja <small>(bisa pilih banyak foto sekaligus; 1 foto = 1 halaman buku, urut sesuai daftar)</small><input id="inAlbum" type="file" accept="image/*" multiple></label>
+      <div class="foto" id="lihatAlbum"></div>
+      <label>Surat di dasar bak mandi <small>(baru bisa diambil setelah airnya dibuang)</small><textarea name="suratBak" rows="4"></textarea></label>
+      <label>Balasan setelah membuang di tempat sampah <small>(tamu menulis hal yang ingin dibuang & dilupakan, kertasnya diremas, lalu muncul tulisan ini)</small><textarea name="suratSampah" rows="4"></textarea></label>
+      <label>Pesan penutup <small>(muncul setelah semua rahasia ditemukan: surat, pohon, bangku, si dia, kue, pot, kasur, 2 foto, album, jendela, lemari, remote, cermin, bak mandi, tempat sampah. Kosongkan kalau tidak dipakai)</small><textarea name="pesanAkhir" rows="5"></textarea></label>
+      <label>Tulisan di cermin berembun <small>(maks. 3 baris pendek, ditulis di dalam hati)</small><textarea name="tulisanCermin" rows="2"></textarea></label>
+      <label>Video di remote TV <small>(video besar dikecilkan otomatis sampai ± 20 MB; prosesnya sepanjang durasi video, jangan pindah tab)</small> <small id="videoSekarang"></small><input id="inVideo" type="file" accept="video/*"></label>
+      <div class="baris"><button type="button" class="garis" id="hapusVideo" hidden>Hapus video</button></div>
+      <p class="kecil" style="margin-bottom:0">Efek suara (mp3/m4a/wav, dikecilkan otomatis). Slot yang kosong memakai suara buatan bawaan game. Saat TV dinyalakan, suara luar berhenti.</p>
+      <div id="daftarMusik"></div>
+    </section>
+    <section class="kartu">
+      <h2>Simpan semua tulisan tamu</h2>
+      <p class="kecil">Yang diketik di game (wish di lilin, jawaban "bagaimana keadaanmu", keluh kesah di bangku, dan yang dibuang di tempat sampah) disimpan ke database Supabase milikmu, lalu bisa kamu baca di bawah. Kosongkan Project URL kalau tidak ingin disimpan.</p>
+      <details id="caraDb"><summary>Cara memasang database (sekali saja, ± 5 menit)</summary>
+        <ol class="kecil">
+          <li>Daftar gratis di <a href="https://supabase.com/dashboard" target="_blank" rel="noopener">supabase.com</a> (bisa masuk dengan akun GitHub), lalu klik <b>New project</b>. Isi nama bebas, buat database password (tidak dipakai di sini), pilih region <b>Singapore</b>, lalu tunggu proyeknya siap.</li>
+          <li>Tulis <b>sandi baca</b> di kolom di bawah (minimal 6 karakter, ingat baik-baik). Klik <b>Buat skrip SQL</b>, lalu <b>Salin skrip</b>.</li>
+          <li>Di Supabase buka <b>SQL Editor</b>, tempel skripnya, lalu klik <b>Run</b>. Harus muncul "Success".</li>
+          <li>Buka <b>Project Settings → API Keys</b> (atau tombol <b>Connect</b>). Salin <b>Project URL</b> dan kunci <b>publishable</b> (atau <b>anon public</b>) ke dua kolom di bawah. Jangan pakai kunci secret / service_role.</li>
+          <li>Klik <b>Kirim tes</b>, lalu <b>Muat tulisan</b>: baris "Tes dari admin" harus muncul. Setelah itu klik <b>Simpan</b> paling bawah.</li>
+        </ol>
+      </details>
+      <label>Sandi baca <small>(untuk membuat skrip SQL dan membaca tulisan; diingat di browser ini saja, tidak masuk repo)</small><input id="sandiDb" type="password" autocomplete="off" minlength="6"></label>
+      <div class="baris"><button type="button" class="garis" id="buatSql">Buat skrip SQL</button><button type="button" class="garis" id="salinSql" hidden>Salin skrip</button></div>
+      <textarea id="skripSql" rows="8" readonly hidden style="font:12px/1.4 ui-monospace,monospace"></textarea>
+      <label>Project URL<input name="dbUrl" type="url" placeholder="https://xxxxxxxx.supabase.co"></label>
+      <label>Kunci publishable / anon public<input name="dbKey" placeholder="sb_publishable_… atau eyJ…"></label>
+      <div class="baris"><button type="button" class="garis" id="tesDb">Kirim tes</button><button type="button" class="garis" id="muatDb">Muat tulisan</button></div>
+      <div class="status" id="statusDb"></div>
+      <div class="status" id="belumTersimpanDb" hidden></div>
+      <div id="daftarTulisan"></div>
+    </section>
+    <section class="kartu">
+      <div class="baris" style="margin-top:0"><button type="submit" id="btnSimpan">Simpan</button><a class="tombol garis" id="lihat" target="_blank" rel="noopener">Lihat hasil</a></div>
+      <div class="status" id="status"></div>
+      <div class="link" id="linkKirim"></div>
+    </section>
+  </form>
+</main>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var API = "https://api.github.com/repos/", repo = "", token = "", sha = null, data = {}, fotoBaru = [], musikBaru = {}, videoBaru = null, albumBaru = [];
+  var KUNCI = "ultah_admin_token";
+  try { var t = localStorage.getItem(KUNCI); if (t) $("token").value = t; } catch (e) {}
+
+  function b64ke(s) { return btoa(unescape(encodeURIComponent(s))); }
+  function b64dari(s) { return decodeURIComponent(escape(atob(s.replace(/\n/g, "")))); }
+  function api(path, opsi, coba) {
+    opsi = opsi || {}; coba = coba || 0;
+    return fetch(API + repo + path, { method: opsi.method || "GET", headers: { Authorization: "Bearer " + token, Accept: "application/vnd.github+json" }, body: opsi.body ? JSON.stringify(opsi.body) : undefined, cache: "no-store" })
+      .then(function (r) {
+        if (r.status >= 500 && coba < 3) return new Promise(function (ok) { setTimeout(ok, 1500 * (coba + 1)); }).then(function () { return api(path, opsi, coba + 1); });
+        return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok) { var e = new Error((j && j.message) || ("HTTP " + r.status)); e.status = r.status; throw e; } return j; });
+      }, function (e) { if (coba < 3) return new Promise(function (ok) { setTimeout(ok, 1500 * (coba + 1)); }).then(function () { return api(path, opsi, coba + 1); }); throw e; });
+  }
+  function urlSitus() { if (/\.github\.io$/i.test(location.hostname)) return new URL("../", location.href).href; var p = repo.split("/"); return "https://" + p[0].toLowerCase() + ".github.io/" + p[1] + "/"; }
+  // isi nama repo otomatis dari alamat admin (tetap benar walau repo diganti nama)
+  (function () { var m = location.hostname.match(/^([^.]+)\.github\.io$/i), seg = location.pathname.split("/").filter(Boolean); if (m && seg.length >= 2) $("repo").value = m[1] + "/" + seg[0]; })();
+
+  $("btnMasuk").addEventListener("click", function () {
+    repo = $("repo").value.trim().replace(/^https?:\/\/github\.com\//, "").replace(/\/$/, ""); token = $("token").value.trim();
+    var st = $("statusMasuk"); st.className = "status"; st.textContent = "Memeriksa…";
+    api("/contents/data.js?ref=main").then(function (j) {
+      sha = j.sha;
+      var teks = b64dari(j.content), m = teks.match(/window\.ULTAH\s*=\s*(\{[\s\S]*\})\s*;?\s*$/);
+      data = m ? JSON.parse(m[1]) : {};
+      try { if ($("ingat").checked) localStorage.setItem(KUNCI, token); else localStorage.removeItem(KUNCI); } catch (e) {}
+      isiForm(); $("masuk").hidden = true; $("form").hidden = false;
+    }).catch(function (e) { st.className = "status gagal"; st.textContent = "Gagal masuk: " + e.message + (e.status === 401 ? "\nToken salah atau sudah kedaluwarsa." : e.status === 404 ? "\nRepo tidak ditemukan atau token tidak punya akses ke repo ini." : ""); });
+  });
+
+  var f = $("form");
+  function isiForm() {
+    ["nama", "usia", "jenis", "pengirim", "surat", "suratPohon", "balasKeluh", "pesanKejutan", "tanyaKabar", "balasKabar", "harapan", "pesanSetelahTiup", "suratPot", "catatanGaun", "tulisanFoto", "suratBak", "suratSampah", "tulisanCermin", "pesanAkhir", "dbUrl", "dbKey"].forEach(function (k) { if (f[k]) f[k].value = data[k] == null ? "" : data[k]; });
+    tampilTunggal(); tampilMusik(); tampilVideo(); tampilAlbum(); tampilTanya(); ingatDb();
+    $("lihat").href = urlSitus(); $("linkKirim").textContent = urlSitus();
+  }
+  var fotoTunggal = {}, TUNGGAL = ["fotoDinding", "fotoMeja"];
+  function tampilTunggal() {
+    TUNGGAL.forEach(function (k) {
+      var w = $("lihat" + k[0].toUpperCase() + k.slice(1)), baru = fotoTunggal[k], src = baru ? baru.url : data[k] ? urlSitus() + data[k] : "";
+      w.innerHTML = src ? '<div' + (baru ? ' class="baru"' : '') + '><img alt="" src="' + src + '"><button type="button" title="Hapus">×</button></div>' : "";
+      if (src) w.querySelector("button").onclick = function () { data[k] = ""; delete fotoTunggal[k]; tampilTunggal(); };
+    });
+  }
+  TUNGGAL.forEach(function (k) {
+    $("in" + k[0].toUpperCase() + k.slice(1)).onchange = function () { var x = this.files[0]; this.value = ""; if (!x) return; kecilkan(x).then(function (b) { fotoTunggal[k] = { blob: b, url: URL.createObjectURL(b) }; tampilTunggal(); }); };
+  });
+  var LAGU = [["suaraLuar", "Suara malam di luar rumah: kodok &amp; jangkrik (diputar berulang, berhenti saat masuk rumah)"], ["suaraAir", "Suara air terbuang saat sumbat bak mandi ditarik"], ["suaraHitung", "Suara cowok hitung mundur \"3… 2… 1…\" saat tiup lilin"], ["suaraSurprise", "Suara cowok \"SURPRISE!\" saat masuk rumah (opsional)"]];
+  $("daftarMusik").innerHTML = LAGU.map(function (l) { return '<label>' + l[1] + ' <small id="info_' + l[0] + '"></small><input id="in_' + l[0] + '" type="file" accept="audio/*"></label><div class="baris"><button type="button" class="garis" id="hapus_' + l[0] + '" hidden>Hapus</button></div>'; }).join("");
+  function tampilTanya() {
+    var w = $("daftarTanya"); w.innerHTML = "";
+    (data.tanyaLanjut || []).forEach(function (q, i) {
+      var d = document.createElement("div"); d.className = "tanya-lanjut";
+      d.innerHTML = '<label>Pertanyaan ' + (i + 2) + '<textarea rows="2" data-k="tanya"></textarea></label><label>Balasan si dia setelah dijawab<textarea rows="3" data-k="balas"></textarea></label><div class="baris"><button type="button" class="garis">Hapus pertanyaan ini</button></div>';
+      d.querySelectorAll("textarea").forEach(function (t) { t.value = q[t.dataset.k] || ""; t.oninput = function () { q[t.dataset.k] = t.value; }; });
+      d.querySelector("button").onclick = function () { data.tanyaLanjut.splice(i, 1); tampilTanya(); };
+      w.appendChild(d);
+    });
+  }
+  $("tambahTanya").onclick = function () { (data.tanyaLanjut = data.tanyaLanjut || []).push({ tanya: "", balas: "" }); tampilTanya(); var t = $("daftarTanya").querySelectorAll("textarea"); if (t.length) t[t.length - 2].focus(); };
+  function tampilAlbum() {
+    var w = $("lihatAlbum"), lama = (data.album || []).map(function (p, i) { return { src: urlSitus() + p, hapus: function () { data.album.splice(i, 1); } }; }),
+      baru = albumBaru.map(function (x, i) { return { src: x.url, baru: true, hapus: function () { albumBaru.splice(i, 1); } }; });
+    w.innerHTML = ""; lama.concat(baru).forEach(function (it, n) {
+      var d = document.createElement("div"); if (it.baru) d.className = "baru";
+      d.innerHTML = '<img alt="" src="' + it.src + '"><span class="no">' + (n + 1) + '</span><button type="button" title="Hapus">×</button>';
+      d.querySelector("button").onclick = function () { it.hapus(); tampilAlbum(); }; w.appendChild(d);
+    });
+  }
+  $("inAlbum").onchange = function () {
+    var fs = Array.prototype.slice.call(this.files); this.value = "";
+    fs.reduce(function (j, x) { return j.then(function () { return kecilkan(x, 1400).then(function (b) { albumBaru.push({ blob: b, url: URL.createObjectURL(b) }); tampilAlbum(); }); }); }, Promise.resolve());
+  };
+  function tampilMusik() {
+    LAGU.forEach(function (l) {
+      var k = l[0], baru = musikBaru[k];
+      $("info_" + k).textContent = baru ? "(baru: " + baru.name + ")" : data[k] ? "(sekarang: " + data[k] + ")" : "(belum ada)";
+      $("hapus_" + k).hidden = !(data[k] || baru);
+    });
+  }
+  LAGU.forEach(function (l) {
+    var k = l[0];
+    $("hapus_" + k).onclick = function () { data[k] = ""; delete musikBaru[k]; $("in_" + k).value = ""; tampilMusik(); };
+    $("in_" + k).onchange = function () { var x = this.files[0]; if (!x) return; if (x.size > 200e6) { alert("File musik terlalu besar (maks. 200 MB)."); this.value = ""; return; } musikBaru[k] = x; tampilMusik(); };
+  });
+  function tampilVideo() {
+    $("videoSekarang").textContent = videoBaru ? "(baru: " + videoBaru.name + ", " + (videoBaru.size / 1e6).toFixed(1) + " MB)" : data.video ? "(sekarang: " + data.video + ")" : "(belum ada)";
+    $("hapusVideo").hidden = !(data.video || videoBaru);
+  }
+  $("hapusVideo").onclick = function () { data.video = ""; videoBaru = null; $("inVideo").value = ""; tampilVideo(); };
+  $("inVideo").onchange = function () { var x = this.files[0]; if (!x) return; if (x.size > 1e9) { alert("Video terlalu besar (maks. 1 GB)."); this.value = ""; return; } videoBaru = x; tampilVideo(); };
+  /* ---------- database tulisan tamu (Supabase) ---------- */
+  // Project URL, kunci, dan sandi baca diingat di browser ini supaya tidak perlu diisi ulang
+  var DB_INGAT = { dbUrl: "ultah_db_url", dbKey: "ultah_db_key", sandiDb: "ultah_db_sandi" };
+  function ambil(k) { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } }
+  function taruh(k, v) { try { if (v) localStorage.setItem(k, v); } catch (e) {} }
+  function ingatDb() {
+    var fu = f.dbUrl, fk = f.dbKey;
+    if (!fu.value && ambil(DB_INGAT.dbUrl)) fu.value = ambil(DB_INGAT.dbUrl);
+    if (!fk.value && ambil(DB_INGAT.dbKey)) fk.value = ambil(DB_INGAT.dbKey);
+    if (!$("sandiDb").value) $("sandiDb").value = ambil(DB_INGAT.sandiDb);
+    cekDbTersimpan();
+    if (data.dbUrl && data.dbKey) { $("caraDb").open = false; if ($("sandiDb").value) setTimeout(muatTulisan, 300); }
+  }
+  function cekDbTersimpan() {
+    var u = f.dbUrl.value.trim().replace(/\/+$/, ""), k = f.dbKey.value.trim(), w = $("belumTersimpanDb");
+    var beda = (u || k) && (u !== (data.dbUrl || "") || k !== (data.dbKey || ""));
+    w.hidden = !beda; w.className = "status gagal"; w.textContent = beda ? "Project URL / kunci ini belum tersimpan ke situs, jadi tulisan dari game belum masuk. Klik Simpan paling bawah." : "";
+  }
+  ["dbUrl", "dbKey"].forEach(function (n) { f[n].addEventListener("input", function () { taruh(DB_INGAT[n], f[n].value.trim()); cekDbTersimpan(); }); });
+  $("sandiDb").addEventListener("input", function () { taruh(DB_INGAT.sandiDb, this.value); });
+  function dbDasar() {
+    var f = $("form"), u = f.dbUrl.value.trim().replace(/\/+$/, "").replace(/\/rest\/v1$/, ""), k = f.dbKey.value.trim();
+    if (!/^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(u)) throw new Error("Project URL harus seperti https://xxxxxxxx.supabase.co");
+    if (!k) throw new Error("Kunci publishable / anon public belum diisi.");
+    if (/^sb_secret_/.test(k)) throw new Error("Itu kunci secret. Pakai kunci publishable (sb_publishable_…) atau anon public.");
+    return { u: u, k: k };
+  }
+  function dbPanggil(path, body) {
+    var d = dbDasar(), h = { apikey: d.k, "Content-Type": "application/json" };
+    if (/^eyJ/.test(d.k)) h.Authorization = "Bearer " + d.k;
+    if (path.indexOf("rpc/") !== 0) h.Prefer = "return=minimal";
+    return fetch(d.u + "/rest/v1/" + path, { method: "POST", headers: h, body: JSON.stringify(body) }).then(function (r) {
+      if (r.ok) return r.text().then(function (t) { return t ? JSON.parse(t) : null; });
+      return r.json().catch(function () { return {}; }).then(function (j) {
+        var m = j.message || j.msg || ("HTTP " + r.status);
+        if (/Sandi salah/.test(m)) m = "Sandi baca salah.";
+        else if (r.status === 404 || /does not exist|Could not find/.test(m)) m = "Tabel atau fungsi belum ada. Jalankan dulu skrip SQL di Supabase. (" + m + ")";
+        else if (r.status === 401) m = "Kunci ditolak. Cek lagi kunci publishable / anon public. (" + m + ")";
+        throw new Error(m);
+      });
+    });
+  }
+  function statusDb(kelas, teks) { var st = $("statusDb"); st.className = "status" + (kelas ? " " + kelas : ""); st.textContent = teks; }
+  function sha256(t) { return crypto.subtle.digest("SHA-256", new TextEncoder().encode(t)).then(function (b) { return Array.prototype.map.call(new Uint8Array(b), function (x) { return ("0" + x.toString(16)).slice(-2); }).join(""); }); }
+  $("buatSql").onclick = function () {
+    var sandi = $("sandiDb").value;
+    if (sandi.length < 6) { statusDb("gagal", "Sandi baca minimal 6 karakter."); $("sandiDb").focus(); return; }
+    sha256(sandi).then(function (h) {
+      var cek = "  if encode(extensions.digest(sandi, 'sha256'), 'hex') <> '" + h + "' then\n    raise exception 'Sandi salah';\n  end if;\n";
+      $("skripSql").value = [
+        "-- Tulisan tamu ulang tahun. Supabase > SQL Editor > tempel > Run. Aman dijalankan ulang (misalnya untuk ganti sandi).",
+        "create extension if not exists pgcrypto with schema extensions;",
+        "create table if not exists public.tulisan (",
+        "  id bigint generated always as identity primary key,",
+        "  waktu timestamptz not null default now(),",
+        "  bagian text not null default '',",
+        "  teks text not null default '',",
+        "  nama text not null default '',",
+        "  tokoh text not null default ''",
+        ");",
+        "alter table public.tulisan enable row level security;",
+        "drop policy if exists \"tamu boleh menulis\" on public.tulisan;",
+        "create policy \"tamu boleh menulis\" on public.tulisan for insert to anon, authenticated",
+        "  with check (char_length(teks) between 1 and 3000 and char_length(bagian) <= 80 and char_length(nama) <= 80 and char_length(tokoh) <= 20);",
+        "revoke all on public.tulisan from anon, authenticated;",
+        "grant insert on public.tulisan to anon, authenticated;",
+        "",
+        "create or replace function public.baca_tulisan(sandi text)",
+        "returns setof public.tulisan language plpgsql security definer set search_path = public, extensions as $$",
+        "begin",
+        cek + "  return query select * from public.tulisan order by waktu desc;",
+        "end $$;",
+        "",
+        "create or replace function public.hapus_tulisan(sandi text, nomor bigint)",
+        "returns void language plpgsql security definer set search_path = public, extensions as $$",
+        "begin",
+        cek + "  delete from public.tulisan where id = nomor;",
+        "end $$;",
+        "",
+        "revoke all on function public.baca_tulisan(text) from public;",
+        "revoke all on function public.hapus_tulisan(text, bigint) from public;",
+        "grant execute on function public.baca_tulisan(text) to anon, authenticated;",
+        "grant execute on function public.hapus_tulisan(text, bigint) to anon, authenticated;",
+        "notify pgrst, 'reload schema';"
+      ].join("\n") + "\n";
+      $("skripSql").hidden = false; $("salinSql").hidden = false; $("salinSql").textContent = "Salin skrip";
+      statusDb("ok", "Skrip SQL siap. Salin, lalu jalankan di Supabase > SQL Editor.");
+    });
+  };
+  $("salinSql").onclick = function () { var t = $("skripSql"), b = this; t.select(); (navigator.clipboard ? navigator.clipboard.writeText(t.value) : Promise.reject()).catch(function () { document.execCommand("copy"); }); b.textContent = "Tersalin"; };
+  $("tesDb").onclick = function () {
+    statusDb("", "Mengirim…");
+    Promise.resolve().then(function () { return dbPanggil("tulisan", { bagian: "Tes dari admin", teks: "Kalau baris ini muncul, penyimpanan sudah berjalan.", nama: data.nama || "", tokoh: "" }); })
+      .then(function () { statusDb("ok", "Terkirim. Klik \"Muat tulisan\" untuk melihatnya, lalu jangan lupa klik Simpan paling bawah."); })
+      .catch(function (e) { statusDb("gagal", "Gagal: " + e.message); });
+  };
+  function waktuLokal(w) { try { return new Date(w).toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" }); } catch (e) { return w; } }
+  function escH(t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function muatTulisan() {
+    var sandi = $("sandiDb").value;
+    if (!sandi) { statusDb("gagal", "Isi sandi baca dulu."); $("sandiDb").focus(); return; }
+    statusDb("", "Memuat…");
+    Promise.resolve().then(function () { return dbPanggil("rpc/baca_tulisan", { sandi: sandi }); }).then(function (baris) {
+      baris = baris || []; statusDb("ok", baris.length ? baris.length + " tulisan." : "Belum ada tulisan.");
+      taruh(DB_INGAT.sandiDb, sandi); taruh(DB_INGAT.dbUrl, f.dbUrl.value.trim()); taruh(DB_INGAT.dbKey, f.dbKey.value.trim());
+      var w = $("daftarTulisan"); w.innerHTML = "";
+      baris.forEach(function (r) {
+        var d = document.createElement("div"); d.className = "tulisan";
+        d.innerHTML = '<div class="tulisan-atas"><b>' + escH(r.bagian) + '</b><span>' + escH(waktuLokal(r.waktu)) + (r.tokoh ? " · " + escH(r.tokoh) : "") + '</span></div><div class="tulisan-isi">' + escH(r.teks) + '</div><button type="button" class="garis kecil-tombol">Hapus</button>';
+        d.querySelector("button").onclick = function () {
+          if (!confirm("Hapus tulisan ini? Tidak bisa dikembalikan.")) return;
+          dbPanggil("rpc/hapus_tulisan", { sandi: sandi, nomor: r.id }).then(function () { d.remove(); }).catch(function (e) { alert("Gagal menghapus: " + e.message); });
+        };
+        w.appendChild(d);
+      });
+    }).catch(function (e) { statusDb("gagal", "Gagal: " + e.message); });
+  }
+  $("muatDb").onclick = muatTulisan;
+  /* ---------- kompres sebelum diunggah (batas aman unggahan GitHub lewat browser) ---------- */
+  var BATAS_FOTO = 700e3, BATAS_MUSIK = 7e6, BATAS_VIDEO = 20e6;
+  function mb(n) { return (n / 1e6).toFixed(1) + " MB"; }
+  function kecilkan(file, sisi) {
+    return new Promise(function (ok, gagal) {
+      var im = new Image(); im.onload = function () {
+        var maks = sisi || 1600, s = Math.min(1, maks / Math.max(im.width, im.height)), c = document.createElement("canvas"), q = .85;
+        c.width = Math.round(im.width * s); c.height = Math.round(im.height * s); c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+        (function coba() { c.toBlob(function (b) { if (b.size > BATAS_FOTO && q > .5) { q -= .1; coba(); } else ok(b); }, "image/jpeg", q); })();
+      }; im.onerror = gagal; im.src = URL.createObjectURL(file);
+    });
+  }
+  function muatSkrip(src) { return new Promise(function (ok, gagal) { var sc = document.createElement("script"); sc.src = src; sc.onload = ok; sc.onerror = function () { gagal(new Error("Gagal memuat " + src)); }; document.head.appendChild(sc); }); }
+  function kompresMusik(file, kabar) {
+    if (file.size <= BATAS_MUSIK && /mpeg|mp3/.test(file.type + file.name)) return Promise.resolve(file);
+    kabar("Mengecilkan musik " + file.name + "…");
+    return Promise.all([file.arrayBuffer(), window.lamejs ? 0 : muatSkrip("https://cdnjs.cloudflare.com/ajax/libs/lamejs/1.2.1/lame.min.js")]).then(function (r) {
+      var AC = window.AudioContext || window.webkitAudioContext, ac = new AC();
+      return new Promise(function (ok, gagal) { ac.decodeAudioData(r[0], ok, gagal); }).then(function (buf) {
+        ac.close && ac.close();
+        var dur = buf.duration, kb = [128, 112, 96, 80, 64, 48].filter(function (k) { return k * 125 * dur < BATAS_MUSIK * .92; })[0] || 48, stereo = kb >= 96 && buf.numberOfChannels > 1;
+        var rate = 44100, n = Math.floor(dur * rate);
+        var off = new OfflineAudioContext(stereo ? 2 : 1, n, rate), src = off.createBufferSource(); src.buffer = buf; src.connect(off.destination); src.start();
+        return off.startRendering().then(function (out) {
+          var enc = new lamejs.Mp3Encoder(stereo ? 2 : 1, rate, kb), L = out.getChannelData(0), R = stereo ? out.getChannelData(1) : null, potong = [], blok = 1152 * 20, i = 0;
+          function i16(a) { var o = new Int16Array(a.length); for (var j = 0; j < a.length; j++) { var v = Math.max(-1, Math.min(1, a[j])); o[j] = v < 0 ? v * 32768 : v * 32767; } return o; }
+          return new Promise(function (ok) {
+            (function langkah() {
+              var akhir = Math.min(n, i + blok * 20);
+              for (; i < akhir; i += blok) { var l = i16(L.subarray(i, Math.min(n, i + blok))), d = stereo ? enc.encodeBuffer(l, i16(R.subarray(i, Math.min(n, i + blok)))) : enc.encodeBuffer(l); if (d.length) potong.push(new Uint8Array(d)); }
+              kabar("Mengecilkan musik… " + Math.round(i / n * 100) + "%");
+              if (i < n) setTimeout(langkah, 0); else { var e = enc.flush(); if (e.length) potong.push(new Uint8Array(e)); ok(new Blob(potong, { type: "audio/mpeg" })); }
+            })();
+          });
+        });
+      });
+    }).then(function (b) { if (b.size > BATAS_MUSIK * 1.1) throw new Error("Musik masih " + mb(b.size) + " setelah dikecilkan. Potong lagunya lebih pendek."); return b; });
+  }
+  function kompresVideo(file, kabar) {
+    if (file.size <= BATAS_VIDEO) return Promise.resolve({ blob: file, ext: /webm/.test(file.type) ? "webm" : "mp4" });
+    if (!window.MediaRecorder || !HTMLCanvasElement.prototype.captureStream) return Promise.reject(new Error("Browser ini tidak bisa mengecilkan video. Coba pakai Chrome di laptop, atau kecilkan dulu ke ± 20 MB."));
+    var tipe = ['video/mp4;codecs="avc1.42E01E,mp4a.40.2"', 'video/mp4;codecs="avc1.4D401F,mp4a.40.2"', "video/mp4;codecs=avc1", "video/webm;codecs=vp9,opus", "video/webm;codecs=vp8,opus", "video/webm"].filter(function (t) { return MediaRecorder.isTypeSupported(t); })[0];
+    if (!tipe) return Promise.reject(new Error("Browser ini tidak bisa mengecilkan video."));
+    return new Promise(function (ok, gagal) {
+      var v = document.createElement("video"); v.src = URL.createObjectURL(file); v.playsInline = true; v.preload = "auto";
+      v.onerror = function () { gagal(new Error("Video tidak bisa dibaca browser ini.")); };
+      v.onloadedmetadata = function () {
+        var dur = v.duration, sk = Math.min(1, 1280 / Math.max(v.videoWidth, v.videoHeight)), c = document.createElement("canvas"), g = c.getContext("2d");
+        c.width = Math.round(v.videoWidth * sk / 2) * 2; c.height = Math.round(v.videoHeight * sk / 2) * 2;
+        var bitV = Math.max(250e3, Math.min(2.5e6, BATAS_VIDEO * 8 * .9 / dur - 96e3));
+        var aliran = c.captureStream(30), AC = window.AudioContext || window.webkitAudioContext, ac = new AC(), tujuan = ac.createMediaStreamDestination();
+        try { ac.createMediaElementSource(v).connect(tujuan); tujuan.stream.getAudioTracks().forEach(function (t) { aliran.addTrack(t); }); } catch (e) {}
+        var rek = new MediaRecorder(aliran, { mimeType: tipe, videoBitsPerSecond: bitV, audioBitsPerSecond: 96e3 }), bagian = [], jalan = true;
+        rek.ondataavailable = function (e) { if (e.data.size) bagian.push(e.data); };
+        rek.onstop = function () { jalan = false; ac.close && ac.close(); var b = new Blob(bagian, { type: tipe.split(";")[0] }); if (b.size > BATAS_VIDEO * 1.15) gagal(new Error("Video masih " + mb(b.size) + " setelah dikecilkan. Potong videonya lebih pendek.")); else ok({ blob: b, ext: /mp4/.test(tipe) ? "mp4" : "webm" }); };
+        (function gambar() { if (!jalan) return; g.drawImage(v, 0, 0, c.width, c.height); kabar("Mengecilkan video… " + Math.round(v.currentTime / dur * 100) + "% (jangan pindah tab)"); (v.requestVideoFrameCallback ? v.requestVideoFrameCallback.bind(v) : requestAnimationFrame)(gambar); })();
+        v.onended = function () { setTimeout(function () { rek.stop(); }, 200); };
+        ac.resume && ac.resume(); rek.start(1000); v.play().catch(function (e) { gagal(e); });
+      };
+    });
+  }
+  function blobB64(b) { return new Promise(function (ok) { var r = new FileReader(); r.onload = function () { ok(String(r.result).split(",")[1]); }; r.readAsDataURL(b); }); }
+  function unggah(path, blob, pesan) { return blobB64(blob).then(function (c) { return api("/contents/" + path, { method: "PUT", body: { message: pesan, content: c, branch: "main" } }); }); }
+
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var st = $("status"), btn = $("btnSimpan"); btn.disabled = true; st.className = "status"; st.textContent = "Menyimpan…";
+    ["nama", "pengirim", "surat", "suratPohon", "balasKeluh", "pesanKejutan", "tanyaKabar", "balasKabar", "harapan", "pesanSetelahTiup", "suratPot", "catatanGaun", "tulisanFoto", "suratBak", "suratSampah", "tulisanCermin", "pesanAkhir", "dbUrl", "dbKey", "jenis"].forEach(function (k) { data[k] = f[k].value.trim(); }); data.dbUrl = data.dbUrl.replace(/\/+$/, "").replace(/\/rest\/v1$/, "");
+    data.usia = f.usia.value ? +f.usia.value : "";
+    data.tanyaLanjut = (data.tanyaLanjut || []).map(function (q) { return { tanya: String(q.tanya || "").trim(), balas: String(q.balas || "").trim() }; }).filter(function (q) { return q.tanya; });
+    var jalan = Promise.resolve(), cap = Date.now();
+    TUNGGAL.forEach(function (k) { var fb = fotoTunggal[k]; if (!fb) return; jalan = jalan.then(function () { st.textContent = "Mengunggah foto…"; var p = "assets/" + k + "-" + cap + ".jpg"; return unggah(p, fb.blob, "Admin: ganti foto").then(function () { data[k] = p; }); }); });
+    function kabar(t) { st.textContent = t; }
+    if (videoBaru) jalan = jalan.then(function () { return kompresVideo(videoBaru, kabar); }).then(function (h) { if (!h) return; kabar("Mengunggah video (" + mb(h.blob.size) + ")… bisa beberapa menit"); var p = "assets/video-" + cap + "." + h.ext; return unggah(p, h.blob, "Admin: ganti video").then(function () { data.video = p; }); });
+    if (albumBaru.length) jalan = jalan.then(function () {
+      data.album = data.album || [];
+      return albumBaru.reduce(function (j, x, i) { return j.then(function () { kabar("Mengunggah album " + (i + 1) + "/" + albumBaru.length + "…"); var p = "assets/album-" + cap + "-" + i + ".jpg"; return unggah(p, x.blob, "Admin: tambah foto album").then(function () { data.album.push(p); }); }); }, Promise.resolve());
+    });
+    LAGU.forEach(function (l) { var k = l[0], x = musikBaru[k]; if (!x) return; jalan = jalan.then(function () { return kompresMusik(x, kabar); }).then(function (b) { kabar("Mengunggah " + l[1].toLowerCase() + " (" + mb(b.size) + ")…"); var p = "assets/" + k + "-" + cap + ".mp3"; return unggah(p, b, "Admin: ganti " + l[1].toLowerCase()).then(function () { data[k] = p; }); }); });
+    jalan.then(function () {
+      st.textContent = "Menyimpan isi kejutan…";
+      var urut = ["nama", "usia", "jenis", "pengirim", "surat", "suratPohon", "balasKeluh", "pesanKejutan", "tanyaKabar", "balasKabar", "tanyaLanjut", "harapan", "pesanSetelahTiup", "suratPot", "catatanGaun", "fotoDinding", "fotoMeja", "tulisanFoto", "album", "suratBak", "suratSampah", "tulisanCermin", "pesanAkhir", "dbUrl", "dbKey", "video", "suaraLuar", "suaraAir", "suaraHitung", "suaraSurprise"], o = {};
+      urut.forEach(function (k) { o[k] = data[k] == null ? "" : data[k]; }); Object.keys(data).forEach(function (k) { if (!(k in o)) o[k] = data[k]; });
+      var isi = "/* Isi kejutan ulang tahun. Paling mudah diubah lewat halaman admin/ (tidak perlu menyentuh file ini).\n   Pisahkan paragraf / halaman dialog dengan satu baris kosong. */\nwindow.ULTAH = " + JSON.stringify(o, null, 2) + ";\n";
+      return api("/contents/data.js", { method: "PUT", body: { message: "Admin: ubah isi kejutan", content: b64ke(isi), sha: sha, branch: "main" } });
+    }).then(function (j) {
+      sha = j.content.sha; fotoTunggal = {}; musikBaru = {}; videoBaru = null; albumBaru = []; LAGU.forEach(function (l) { $("in_" + l[0]).value = ""; }); $("inVideo").value = ""; tampilTunggal(); tampilMusik(); tampilVideo(); tampilAlbum(); tampilTanya(); cekDbTersimpan();
+      st.className = "status ok"; st.textContent = "Tersimpan ✓\nGitHub Pages butuh sekitar 1 menit untuk memperbarui. Setelah itu buka linknya dan tekan Ctrl+F5 (atau tarik ke bawah di HP) agar versi terbaru tampil.";
+    }).catch(function (er) {
+      st.className = "status gagal"; st.textContent = "Gagal menyimpan: " + er.message + (er.status === 409 ? "\nData berubah dari tempat lain. Muat ulang halaman ini lalu coba lagi." : "\nTekan Simpan lagi untuk mencoba ulang.");
+    }).then(function () { btn.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>
